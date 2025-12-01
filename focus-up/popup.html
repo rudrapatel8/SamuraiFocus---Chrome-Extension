@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samurai Focus</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+</head>
+<audio id="timerComplete" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_032774b4ed.mp3?filename=bell-sound-2-190773.mp3"></audio>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg class="katana-detailed" viewBox="0 0 800 200" width="120" height="40">
+            <!-- Blade -->
+            <path class="blade" d="M180,100 C180,100 600,100 650,100 C670,100 680,98 690,96 C700,94 710,92 720,90 C730,88 740,86 750,85 L720,100 L750,115 C740,114 730,112 720,110 C710,108 700,106 690,104 C680,102 670,100 650,100 C600,100 180,100 180,100" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"/>
+            
+            <!-- Blade Edge -->
+            <path class="blade-edge" d="M180,98 C180,98 600,98 650,98 C670,98 690,94 710,90 C730,86 750,83 750,83" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="1"/>
+            
+            <!-- Handle Wrapping -->
+            <path class="handle-wrap" d="M50,100 L180,100 M50,100 
+                                        M60,95 L170,95 
+                                        M60,105 L170,105
+                                        M70,90 L160,90
+                                        M70,110 L160,110" 
+                  stroke="currentColor" 
+                  stroke-width="1.5"
+                  stroke-dasharray="5,5"/>
+            
+            <!-- Handle -->
+            <path class="handle" d="M50,100 L180,100" 
+                  stroke="currentColor" 
+                  stroke-width="8"
+                  stroke-linecap="round"/>
+            
+            <!-- Guard (Tsuba) -->
+            <path class="guard" d="M170,80 C180,80 190,80 190,100 C190,120 180,120 170,120" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="4"/>
+            
+            <!-- End Cap -->
+            <circle class="end-cap" cx="50" cy="100" r="5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="2"/>
+        </svg>
+        <h1 class="title">Samurai Focus</h1>
+        <div class="theme-selector">
+          <select id="theme-select" class="theme-dropdown">
+            <option value="samurai">Samurai Red</option>
+            <option value="zen">Zen Green</option>
+            <option value="night">Night Blue</option>
+            <option value="sakura">Sakura Pink</option>
+          </select>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="timer">Timer</button>
+        <button class="tab-btn" data-tab="tasks">Tasks</button>
+        <button class="tab-btn" data-tab="quotes">Zen</button>
+        <button class="tab-btn" data-tab="sounds">Ambience</button>
+      </nav>
+    </header>
+
+    <main>
+        <main>
+            <section id="timer" class="tab-content active">
+              <div class="timer-container">
+                <!-- Add this new section at the top -->
+                <div class="focus-status">
+                  <div class="focus-circle">
+                    <div class="focus-icon">⚔️</div>
+                    <div class="focus-state" id="focus-state">Ready to Focus</div>
+                  </div>
+                  <div class="focus-stats">
+                    <div class="stat-item">
+                      <span class="stat-label">Sessions Completed</span>
+                      <span class="stat-value" id="sessions-completed">0</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">Daily Focus Time</span>
+                      <span class="stat-value" id="daily-focus">0 min</span>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="timer-display">
+                  <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+          <div class="timer-controls">
+            <button id="start-btn" class="btn primary">Start</button>
+            <button id="pause-btn" class="btn secondary" disabled>Pause</button>
+            <button id="reset-btn" class="btn secondary">Reset</button>
+          </div>
+          <div class="timer-settings">
+            <div class="setting">
+              <label for="focus-time">Focus Time (min)</label>
+              <input type="number" id="focus-time" min="1" max="60" value="25">
+            </div>
+            <div class="setting">
+              <label for="break-time">Break Time (min)</label>
+              <input type="number" id="break-time" min="1" max="30" value="5">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tasks" class="tab-content">
+        <div class="tasks-container">
+          <div class="task-form">
+            <input type="text" id="task-input" placeholder="Add a new task...">
+            <input type="date" id="task-date">
+            <button id="add-task-btn" class="btn primary">Add</button>
+          </div>
+          <div class="task-list" id="task-list"></div>
+        </div>
+      </section>
+
+      <section id="quotes" class="tab-content">
+        <div class="quotes-container">
+          <div class="quote-display">
+            <div class="quote-text" id="quote-text"></div>
+            <div class="quote-author" id="quote-author"></div>
+          </div>
+          <button id="new-quote-btn" class="btn primary">New Quote</button>
+        </div>
+      </section>
+
+      <section id="sounds" class="tab-content">
+        <div class="sounds-container">
+          <div class="sound-item" data-sound="rain">
+            <div class="sound-icon">🌧️</div>
+            <div class="sound-info">
+              <div class="sound-name">Rain on Temple</div>
+              <div class="sound-controls">
+                <button class="play-btn">Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="sound-item" data-sound="bamboo">
+            <div class="sound-icon">🎋</div>
+            <div class="sound-info">
+              <div class="sound-name">Bamboo Forest</div>
+              <div class="sound-controls">
+                <button class="play-btn">Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="sound-item" data-sound="river">
+            <div class="sound-icon">🏞️</div>
+            <div class="sound-info">
+              <div class="sound-name">Mountain River</div>
+              <div class="sound-controls">
+                <button class="play-btn">Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="sound-item" data-sound="wind">
+            <div class="sound-icon">🍃</div>
+            <div class="sound-info">
+              <div class="sound-name">Wind Chimes</div>
+              <div class="sound-controls">
+                <button class="play-btn">Play</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+  <div id="timer-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-title">Time's Up!</h2>
+        </div>
+        <div class="modal-body">
+            <p id="modal-message">Focus session complete!</p>
+        </div>
+        <div class="modal-footer">
+            <button id="modal-continue" class="btn primary">Continue</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
